@@ -44,7 +44,7 @@ class Core
 
     public function add_actions()
     {
-        add_action('krn_send_stats', [$this, 'send_stats'], 10, 1);
+        add_action('krn_send_stat', [$this, 'send_stat'], 10, 3);
         //CloudWatch
         //Needed for BC
         add_action('krn_log_cloudwatch', [$this, 'log_syslog'], 10, 2);
@@ -56,19 +56,18 @@ class Core
     //Actual Methods
     public function send_stat($key, $value, $type)
     {
-      var_dump(1); exit;
         if ($type == 'counting') {
             $this->statsd->counting($key, $value);
         }
         if ($type == 'timing') {
             $this->statsd->timing($key, $value);
         }
+
     }
 
     public function log_syslog($message, $level = 'warning')
     {
-        var_dump(1);
-        exit;
+      var_dump($message); exit;
         $handler = new SyslogUdpHandler(KRN_HOST_SYSLOG, 514);
         $log = new Logger('krn.cloudwatch');
 

@@ -11,6 +11,8 @@
  * Domain Path: /languages
  */
 
+
+
 namespace KMM\Metrics;
 
 use KMM\Metrics\Core;
@@ -18,7 +20,6 @@ use KMM\Metrics\Core;
 if (! function_exists('add_filter')) {
     return;
 }
-
 
 /**
  * Ensure that autoload is already loaded or loads it if available.
@@ -31,12 +32,12 @@ function ensure_class_loaded($class_name)
 {
 
     $class_exists   = class_exists($class_name);
-    $autoload_found = file_exists(__DIR__ . '/vendor/autoload.php');
+    $autoload_found = file_exists(ABSPATH . '/vendor/autoload.php');
 
     // If the class does not exist, and the vendor file is there
     // maybe the plugin was installed separately via Composer, let's try to load autoload
     if (! $class_exists && $autoload_found) {
-        @require_once __DIR__ . '/vendor/autoload.php';
+        @require_once ABSPATH . '/vendor/autoload.php';
     }
 
     return $class_exists || ( $autoload_found && class_exists($class_name) );
@@ -47,6 +48,7 @@ if (! ensure_class_loaded(__NAMESPACE__ . '\Core')) {
     return;
 }
 
+
 add_action('plugins_loaded', __NAMESPACE__ . '\main');
 
 
@@ -55,7 +57,7 @@ add_action('plugins_loaded', __NAMESPACE__ . '\main');
  */
 function main()
 {
-  include_once("src/StatsD.php");
+    include_once("src/StatsD.php");
 
     $i18n = 'kmm-metrics';
     load_plugin_textdomain(

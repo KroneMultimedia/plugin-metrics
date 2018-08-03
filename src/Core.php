@@ -49,8 +49,8 @@ class Core
         //Needed for BC
         add_action('krn_log_cloudwatch', [$this, 'log_syslog'], 10, 2);
         add_action('krn_log_syslog', [$this, 'log_syslog'], 10, 2);
+    
     }
-
     //Actual Methods
     public function send_stat($key, $value, $type)
     {
@@ -64,6 +64,7 @@ class Core
 
     public function log_syslog($message, $level = 'warning')
     {
+      var_dump(1); exit;
         $handler = new SyslogUdpHandler(KRN_HOST_SYSLOG, 514);
         $log = new Logger('krn.cloudwatch');
 

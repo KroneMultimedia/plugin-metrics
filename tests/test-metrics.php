@@ -19,6 +19,7 @@ class TestMetrics extends \WP_UnitTestCase
     * @test
     */
     public function sample() {
+      $this->assertEquals(1,1);
     }
 
 

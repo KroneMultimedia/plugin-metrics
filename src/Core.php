@@ -56,6 +56,7 @@ class Core
     //Actual Methods
     public function send_stat($key, $value, $type)
     {
+      var_dump(1); exit;
         if ($type == 'counting') {
             $this->statsd->counting($key, $value);
         }

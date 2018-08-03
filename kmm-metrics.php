@@ -55,6 +55,8 @@ add_action('plugins_loaded', __NAMESPACE__ . '\main');
  */
 function main()
 {
+  include_once("src/StatsD.php");
+
     $i18n = 'kmm-metrics';
     load_plugin_textdomain(
         $i18n,

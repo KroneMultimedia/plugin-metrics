@@ -7,6 +7,7 @@
 
 
 namespace UNT;
+require_once(__DIR__ . "/../../vendor/autoload.php");
 
 # Fake ENV
 define('KRN_HOST_API', 'test-api.krone.at');

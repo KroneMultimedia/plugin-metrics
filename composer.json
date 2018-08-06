@@ -1,6 +1,6 @@
 {
   "name": "wordpress/plugin-metrics",
-  "type": "wordpress-plugin",
+  "type": "wordpress-muplugin",
   "support": {
     "src": "http://gitlab.krone.at/WordPress/plugin-metrics"
   },

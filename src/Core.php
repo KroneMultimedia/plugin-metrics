@@ -19,10 +19,10 @@ class Core
         $this->plugin_dir = plugin_dir_url(__FILE__) . '../';
 
         if (! defined('KRN_METRICS_STATSD_HOST')) {
-            define('KRN_METRICS_STATSD_HOST', 'stats.krn.krone.at');
+            define('KRN_METRICS_STATSD_HOST', 'localhost');
         }
         if (! defined('KRN_HOST_SYSLOG')) {
-            define('KRN_HOST_SYSLOG', 'syslog.krn.krone.at');
+            define('KRN_HOST_SYSLOG', 'localhost');
         }
         if (! defined('KRN_MY_HOSTNAME')) {
             define('KRN_MY_HOSTNAME', gethostname());

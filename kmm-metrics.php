@@ -36,11 +36,13 @@ function ensure_class_loaded($class_name)
 
     // If the class does not exist, and the vendor file is there
     // maybe the plugin was installed separately via Composer, let's try to load autoload
-    if (! $class_exists && $autoload_found) {
-        @require_once ABSPATH . '/vendor/autoload.php';
+    $local_autoload_found = file_exists(ABSPATH . '/wp-content/plugins/kmm-metrics/vendor/autoload.php');
+    if(! $class_exists && $local_autoload_found ) {
+        @require_once ABSPATH . 'wp-content/plugins/kmm-metrics/vendor/autoload.php';
     }
 
-    return $class_exists || ( $autoload_found && class_exists($class_name) );
+    return $class_exists || ( ($autoload_found || $local_autoload_found) && class_exists($class_name) );
+
 }
 
 // Exit if classes are not available

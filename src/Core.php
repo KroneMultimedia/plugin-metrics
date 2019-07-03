@@ -28,7 +28,7 @@ class Core
             define('KRN_MY_HOSTNAME', gethostname());
         }
 
-        $this->statsd = new StatsD(KRN_METRICS_STATSD_HOST);
+        $this->statsd = new StatsD(KRN_METRICS_STATSD_HOST, 8125, KRN_MY_HOSTNAME);
 
         $this->add_filters();
         $this->add_actions();

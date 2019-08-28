@@ -16,16 +16,20 @@ class StatsD
         if ($this->hostname) {
             $key = $key . ',krn_node_name=' . $this->hostname;
         }
+        if ($this->sentryEnv) {
+            $key = $key . ',krn_sentry_env=' . $this->sentryEnv;
+        }
 
         return $key;
     }
 
     // Instantiate a new client
-    public function __construct($host = 'localhost', $port = 8125, $hostname = null)
+    public function __construct($host = 'localhost', $port = 8125, $hostname = null, $sentryEnv = '')
     {
         $this->host = $host;
         $this->port = $port;
         $this->hostname = $hostname;
+        $this->sentryEnv = $sentryEnv;
     }
 
     // Record timing

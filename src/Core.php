@@ -27,8 +27,11 @@ class Core
         if (! defined('KRN_MY_HOSTNAME')) {
             define('KRN_MY_HOSTNAME', gethostname());
         }
+        if (! defined('WP_SENTRY_ENV')) {
+            define('WP_SENTRY_ENV', 'default');
+        }
 
-        $this->statsd = new StatsD(KRN_METRICS_STATSD_HOST, 8125, KRN_MY_HOSTNAME);
+        $this->statsd = new StatsD(KRN_METRICS_STATSD_HOST, 8125, KRN_MY_HOSTNAME, WP_SENTRY_ENV);
 
         $this->add_filters();
         $this->add_actions();

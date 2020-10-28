@@ -16,6 +16,7 @@ jQuery(window).load(function() {
 			name:  'pageload',
 			category: pagenow,
 			type: "timing",
+			post_type: typenow,
 			value: KRNM.loadTime
 		}
 

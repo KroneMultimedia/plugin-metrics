@@ -16,7 +16,7 @@ class Core
         $this->requestStartMicro = null;
         $this->i18n = $i18n;
         $this->wpdb = $wpdb;
-        $this->plugin_dir = plugin_dir_url(__FILE__) . '../';
+        $this->plugin_dir = '/wp-content/mu-plugins/includes/kmm-metrics';
 
         if (! defined('KRN_METRICS_STATSD_HOST')) {
             define('KRN_METRICS_STATSD_HOST', 'localhost');
@@ -58,6 +58,27 @@ class Core
         add_action('save_post', [$this, 'save_post_end'], 99999, 3);
         add_action('init', [$this, 'krn_init'], 10, 1);
         add_action('shutdown', [$this, 'krn_shutdown'], 10, 1);
+
+        add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
+        add_action('wp_ajax_krn_metrics_track', [$this, 'ajax_krn_metrics_track']);
+    }
+
+    public function ajax_krn_metrics_track()
+    {
+        $name = $_POST['metric']['name'];
+        $value = $_POST['metric']['value'];
+        $type = $_POST['metric']['type'];
+        $category = $_POST['metric']['category'];
+        $post_type = $_POST['metric']['post_type'];
+
+        $name .= ',category=' . $category . ",post_type=" . $post_type;
+        $this->send_stat('krn.ajax1.' . $name, $value, $type);
+        wp_die();
+    }
+
+    public function admin_scripts()
+    {
+        wp_enqueue_script('my_custom_script', $this->plugin_dir . '/js/krn-metrics.js', ['jquery']);
     }
 
     public function krn_init()

@@ -71,7 +71,7 @@ class Core
         $category = $_POST['metric']['category'];
         $post_type = $_POST['metric']['post_type'];
 
-        $name .= ',category=' . $category . ",post_type=" . $post_type;
+        $name .= ',category=' . $category . ',post_type=' . $post_type;
         $this->send_stat('krn.ajax1.' . $name, $value, $type);
         wp_die();
     }

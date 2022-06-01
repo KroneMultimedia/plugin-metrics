@@ -107,6 +107,27 @@ class Core {
             do_action('krn_send_stat', 'krn.backend.response.family.' . $family, 1, 'counting');
             do_action('krn_send_stat', 'krn.backend.response.time', $timeConsumed, 'timing');
             do_action('krn_send_stat', 'krn.backend.response.time.' . $family, $timeConsumed, 'timing');
+
+            echo 'aaaa';
+            if (is_admin()) {
+                $page = get_current_screen();
+                if ($page) {
+                    print_r($page->post_type);
+                    print_r($page->action);
+                    print_r($page->base);
+                    print_r($page->parent_base);
+                    $usr = wp_get_current_user();
+                    $role = 'undefined';
+                    if ($usr) {
+                        if ($usr->roles && count($usr->roles) > 0) {
+                            $role = $usr->roles[0];
+                        }
+                    }
+
+                    $mkey = 'krn.backend.page_load,role=' . $role . ',post_type=' . $page->post_type . ',action=' . $page->action . ',base=' . $page->base . ',parent_base=' . $page->parent_base;
+                    do_action('krn_send_stat', $mkey, $timeConsumed, 'timing');
+                }
+            }
         }
     }
 

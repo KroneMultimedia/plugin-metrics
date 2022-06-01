@@ -108,7 +108,6 @@ class Core {
             do_action('krn_send_stat', 'krn.backend.response.time', $timeConsumed, 'timing');
             do_action('krn_send_stat', 'krn.backend.response.time.' . $family, $timeConsumed, 'timing');
 
-            echo 'aaaa';
             if (is_admin()) {
                 $page = get_current_screen();
                 if ($page) {

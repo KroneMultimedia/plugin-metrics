@@ -1,30 +1,24 @@
 <?php
 /**
-* @covers KMM\Metrics\Core
+* @covers \KMM\Metrics\Core
 */
 use KMM\Metrics\Core;
-use phpmock\MockBuilder;
 
-
-class TestMetrics extends \WP_UnitTestCase
-{
-    public function setUp()
-    {
-        # setup a rest server
+class TestMetrics extends \WP_UnitTestCase {
+    public function setUp(): void {
+        // setup a rest server
         parent::setUp();
         $this->core = new Core('i18n');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function sample() {
-      $this->assertEquals(1,1);
+        $this->assertEquals(1, 1);
     }
 
-
-    public function tearDown()
-    {
+    public function tearDown(): void {
         parent::tearDown();
     }
 }

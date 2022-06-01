@@ -37,6 +37,7 @@
     "phpstan/phpstan": "^1.7",
     "phpstan/phpstan-phpunit": "^1.1",
     "scrutinizer/ocular": "^1.5",
-    "friendsofphp/php-cs-fixer": "^3.8"
+    "friendsofphp/php-cs-fixer": "^3.8",
+    "yoast/phpunit-polyfills": "^1.0"
   }
 }

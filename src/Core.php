@@ -111,10 +111,6 @@ class Core {
             if (is_admin()) {
                 $page = get_current_screen();
                 if ($page) {
-                    print_r($page->post_type);
-                    print_r($page->action);
-                    print_r($page->base);
-                    print_r($page->parent_base);
                     $usr = wp_get_current_user();
                     $role = 'undefined';
                     if ($usr) {

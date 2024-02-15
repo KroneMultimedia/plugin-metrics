@@ -137,6 +137,7 @@ class Core {
     }
 
     public function log_syslog($message, $level = 'warning') {
+       try {
         $handler = new SyslogUdpHandler(KRN_HOST_SYSLOG, 514);
         $log = new Logger('krn.cloudwatch');
 
@@ -145,6 +146,9 @@ class Core {
 
         $log->pushHandler($handler);
         $log->$level($message);
+        } catch(\Throwable $e) {
+
+        }
     }
 
     public function save_post_start($post) {

@@ -6,10 +6,12 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Logger;
 
-class Core {
+class Core
+{
     private $plugin_dir;
 
-    public function __construct($i18n) {
+    public function __construct($i18n)
+    {
         global $wpdb;
         $this->requestStartMicro = null;
         $this->i18n = $i18n;
@@ -36,13 +38,16 @@ class Core {
         $this->add_metabox();
     }
 
-    public function add_metabox() {
+    public function add_metabox()
+    {
     }
 
-    public function add_filters() {
+    public function add_filters()
+    {
     }
 
-    public function add_actions() {
+    public function add_actions()
+    {
         add_action('krn_send_stat', [$this, 'send_stat'], 10, 3);
         // CloudWatch
         // Needed for BC
@@ -58,7 +63,8 @@ class Core {
         add_action('wp_ajax_krn_metrics_track', [$this, 'ajax_krn_metrics_track']);
     }
 
-    public function ajax_krn_metrics_track() {
+    public function ajax_krn_metrics_track()
+    {
         $name = $_POST['metric']['name'];
         $value = $_POST['metric']['value'];
         $type = $_POST['metric']['type'];
@@ -70,15 +76,18 @@ class Core {
         wp_die();
     }
 
-    public function admin_scripts() {
+    public function admin_scripts()
+    {
         wp_enqueue_script('my_custom_script', $this->plugin_dir . '/js/krn-metrics.js', ['jquery']);
     }
 
-    public function krn_init() {
+    public function krn_init()
+    {
         $this->requestStartMicro = microtime(true);
     }
 
-    public function krn_shutdown() {
+    public function krn_shutdown()
+    {
         if ($this->requestStartMicro) {
             $timeConsumed = round(microtime(true) - $this->requestStartMicro, 3) * 1000;
             $uri = '';
@@ -127,7 +136,8 @@ class Core {
     }
 
     // Actual Methods
-    public function send_stat($key, $value, $type) {
+    public function send_stat($key, $value, $type)
+    {
         if ('counting' == $type) {
             $this->statsd->counting($key, $value);
         }
@@ -136,26 +146,28 @@ class Core {
         }
     }
 
-    public function log_syslog($message, $level = 'warning') {
-       try {
-        $handler = new SyslogUdpHandler(KRN_HOST_SYSLOG, 514);
-        $log = new Logger('krn.cloudwatch');
+    public function log_syslog($message, $level = 'warning')
+    {
+        try {
+            $handler = new SyslogUdpHandler(KRN_HOST_SYSLOG, 514);
+            $log = new Logger('krn.cloudwatch');
 
-        $formatter = new LineFormatter('(BACKEND-' . KRN_MY_HOSTNAME . ") %level_name%: %message%\n");
-        $handler->setFormatter($formatter);
+            $formatter = new LineFormatter('(BACKEND-' . KRN_MY_HOSTNAME . ") %level_name%: %message%\n");
+            $handler->setFormatter($formatter);
 
-        $log->pushHandler($handler);
-        $log->$level($message);
-        } catch(\Throwable $e) {
-
+            $log->pushHandler($handler);
+            $log->$level($message);
+        } catch (\Throwable $e) {
         }
     }
 
-    public function save_post_start($post) {
+    public function save_post_start($post)
+    {
         $this->save_post_start = microtime(true);
     }
 
-    public function save_post_end($post) {
+    public function save_post_end($post)
+    {
         $type = get_post_type($post);
         $this->save_post_end = microtime(true);
         $ms = round($this->save_post_end - $this->save_post_start, 3) * 1000;

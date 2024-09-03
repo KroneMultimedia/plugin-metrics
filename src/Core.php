@@ -123,7 +123,7 @@ class Core
                     $usr = wp_get_current_user();
                     $role = 'undefined';
                     if ($usr) {
-                        if ($usr->roles && count($usr->roles) > 0) {
+                        if ($usr->roles && count($usr->roles) > 0 && array_key_exists(0, $usr->roles)) {
                             $role = $usr->roles[0];
                         }
                     }

@@ -14,8 +14,7 @@ final class Php73 extends Config {
         'array_syntax' => [
         'syntax' => 'short',
         ],
-                'binary_operator_spaces' => [
-                ],
+                'binary_operator_spaces' => true,
                 'blank_line_after_namespace' => true,
                 'blank_line_after_opening_tag' => true,
                 'braces' => [
